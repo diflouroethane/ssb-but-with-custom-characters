@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var character_base: PackedScene 
+var character_base = preload("res://player.tscn")
 var loader = C_Loader.new()
 var chars: PackedStringArray = loader.load_all()
 var current: int = 0
@@ -14,11 +14,18 @@ func _process(delta: float) -> void:
 
 func _on_spawn_pressed() -> void:
 	var a: Player = character_base.instantiate()
+	var aShape: RectangleShape2D = RectangleShape2D.new()
+	var data: Array = loader.load_c_image(chars[current])
+	a.get_node("Sprite2D").texture = data[0]
+	#set_props(a, chars[current])
+	aShape.size = Vector2(data[1], data[2])
+	a.get_node("CollisionShape2D").set_shape(aShape)
+	print(a.get_node("CollisionShape2D"))
 	add_child(a)
-	a.set_props(chars[current])
 	
 
-
+func set_props(player: Player, character: String):
+	pass
 func _on_next_pressed() -> void:
 	current += 1
 

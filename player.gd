@@ -5,8 +5,11 @@ class_name Player
 var loader: C_Loader = C_Loader.new()
 const SPEED: float = 300.0
 const JUMP_VELOCITY: float = -400.0
+var extA
+var extB
 
 func _ready() -> void:
+	#$CollisionShape2D.shape.size = Vector2(extA,extB)
 	pass
 
 func _physics_process(delta: float) -> void:
@@ -32,4 +35,4 @@ func set_props(character: String):
 	var data: Array = loader.load_c_image(character)
 	$Sprite2D.texture = data[0]
 	var shape: Shape2D = $CollisionShape2D.shape
-	shape.extents =Vector2(data[1]/2, data[2]/2)
+	shape.size =Vector2(data[1]/2, data[2]/2)
