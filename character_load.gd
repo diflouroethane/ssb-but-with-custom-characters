@@ -4,9 +4,9 @@ class_name C_Loader
 
 func load_all() -> PackedStringArray:
 	var config = ConfigFile.new()
-	var err = config.load("res://characters/characters.cfg")
+	var err = config.load("user://characters/characters.cfg")
 	if err != OK:
-		return []
+		print("aaaaaa: ", err)
 
 	return config.get_section_keys("characters")
 

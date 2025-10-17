@@ -5,30 +5,46 @@ class_name Player
 var loader: C_Loader = C_Loader.new()
 const SPEED: float = 300.0
 const JUMP_VELOCITY: float = -400.0
-var extA
-var extB
+var extA: float
+var extB: float
+var index: int
+var controller: int
+var jump
+
+var bindings: Dictionary = {
+	"left": JOY_BUTTON_DPAD_LEFT,
+	"right": JOY_BUTTON_DPAD_RIGHT,
+	"up": JOY_BUTTON_DPAD_UP,
+	"down": JOY_BUTTON_DPAD_DOWN,
+	"jump": JOY_BUTTON_A
+}
 
 func _ready() -> void:
-	#$CollisionShape2D.shape.size = Vector2(extA,extB)
-	pass
+	Global.allPlayers.append(self)
+	index = Global.allPlayers.find(self)
+	controller = Input.get_connected_joypads()[index]
+	print(index)
+
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
+	jump = Input.is_joy_button_pressed(controller, bindings["jump"])
+	
 	if not is_on_floor():
 		velocity += get_gravity() * delta
-
-	# Handle jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+	
+	if jump and is_on_floor():
+		
 		velocity.y = JUMP_VELOCITY
+		jump = false
 
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var direction := Input.get_axis("ui_left", "ui_right")
-	if direction:
-		velocity.x = direction * SPEED
+	if Input.is_joy_button_pressed(controller, bindings["left"]):
+		velocity.x = -SPEED
+	elif Input.is_joy_button_pressed(controller, bindings["right"]):
+		velocity.x = SPEED
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-
+	
 	move_and_slide()
 
 func set_props(character: String):
