@@ -1,10 +1,12 @@
 [gd_scene load_steps=5 format=4 uid="uid://cqrc0ooj23ef1"]
 
 [ext_resource type="Script" uid="uid://d0qsvxttkqtw5" path="res://main.gd" id="1_0xm2m"]
-[ext_resource type="Texture2D" uid="uid://djjdibqlymvgx" path="res://characters/test/test-basic.png" id="2_0xm2m"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_ig7tw"]
+load_path = "res://.godot/imported/test-basic.png-c50a6fc673697e8018a17e14aceb31f2.ctex"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h2yge"]
-texture = ExtResource("2_0xm2m")
+texture = SubResource("CompressedTexture2D_ig7tw")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)

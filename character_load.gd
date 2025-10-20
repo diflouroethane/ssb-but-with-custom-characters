@@ -6,17 +6,27 @@ func load_all() -> PackedStringArray:
 	var config = ConfigFile.new()
 	var err = config.load("user://characters/characters.cfg")
 	if err != OK:
-		print("aaaaaa: ", err)
+		print("aaaaaa: ")
 
 	return config.get_section_keys("characters")
 
-func load_c_image(character: String) -> Array: 
+func load_char(char: String) -> Dictionary: 
 	# this returns specifically an array that has a Texture2d, int, int
 	var config = ConfigFile.new()
-	var err = config.load("res://characters/"+character+"/"+character+".cfg")
+	var err = config.load("user://characters/"+char+"/"+char+".cfg")
+	var path = "user://characters/"+ config.get_value("meta", "name") + "/"
+	return {
+		"base_image": load(path + config.get_value("meta", "image")),
+		"hb_width": config.get_value("meta", "hb_width", 32),
+		"hb_height": config.get_value("meta", "hb_height", 32),
+		"scalex": config.get_value("meta", "scalex", 1.0),
+		"scaley": config.get_value("meta", "scaley", 1.0),
+		"speed": config.get_value("stats", "speed", 200),
+		"jump": config.get_value("stats", "jump", -400),
+		"idle_anim_folder": config.get_value("anim", "idle_folder", "idle"),
+		"idle_anim_frames": config.get_value("anim", "idle_frames", 1),
+		"run_anim_folder": config.get_value("anim", "run_folder", "run"),
+		"run_anim_frames": config.get_value("anim", "run_frames", 1)
+	}
+
 	
-	return [
-		load("res://characters/"+ config.get_value("meta", "name") + "/" + config.get_value("meta", "image")),
-		config.get_value("meta", "hb_width"),
-		config.get_value("meta", "hb_height")
-	]

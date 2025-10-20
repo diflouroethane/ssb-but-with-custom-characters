@@ -11,23 +11,11 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	#$CanvasLayer/Label.text = chars[current]
+	$CanvasLayer/Label.text = chars[current]
 	pass
 
 func _on_spawn_pressed() -> void:
-	var a: Player = character_base.instantiate()
-	var aShape: RectangleShape2D = RectangleShape2D.new()
-	var data: Array = loader.load_c_image(chars[current])
-	a.get_node("Sprite2D").texture = data[0]
-	#set_props(a, chars[current])
-	aShape.size = Vector2(data[1], data[2])
-	a.get_node("CollisionShape2D").set_shape(aShape)
-	print(a.get_node("CollisionShape2D"))
-	add_child(a)
-	
-
-func set_props(player: Player, character: String):
-	pass
+	spawn()
 
 func _on_next_pressed() -> void:
 	if !(current==len(chars)-1):
@@ -40,3 +28,35 @@ func _on_prev_pressed() -> void:
 func on_gamepad_connected(device, controller) ->void:
 	Global.allControllers = Input.get_connected_joypads()
 	print(Global.allControllers)
+
+func spawn() -> void:
+	var path = "user://characters/"+ chars[current] + "/"
+	var a: Player = character_base.instantiate()
+	
+	var data: Dictionary = loader.load_char(chars[current])
+	
+	var animSprite: AnimatedSprite2D = a.get_node("AnimatedSprite2D")
+	var sframes: SpriteFrames = SpriteFrames.new()
+	
+	sframes.add_animation("idle")
+	for i in range(data["idle_anim_frames"]):
+		var im = Image.new()
+		sframes.add_frame("idle", ImageTexture.create_from_image(im.load_from_file(path + "anim/" + data["idle_anim_folder"] + "/idle" + str(i+1) + ".png")))
+	
+	sframes.add_animation("run")
+	for i in range(data["run_anim_frames"]):
+		var im = Image.new()
+		sframes.add_frame("run", ImageTexture.create_from_image(im.load_from_file(path + "anim/" + data["run_anim_folder"] + "/run" + str(i+1) + ".png")))
+	
+	animSprite.set_sprite_frames(sframes)
+	
+	
+	
+	var aShape: RectangleShape2D = RectangleShape2D.new()
+	aShape.size = Vector2(data["hb_width"], data["hb_height"])
+	a.get_node("CollisionShape2D").set_shape(aShape)
+	
+	a.SPEED = data["speed"]
+	a.JUMP_VELOCITY = data["jump"]
+	a.scale = Vector2(data["scalex"], data["scaley"])
+	add_child(a)
