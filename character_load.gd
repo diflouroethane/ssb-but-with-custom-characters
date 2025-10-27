@@ -26,7 +26,14 @@ func load_char(char: String) -> Dictionary:
 		"idle_anim_folder": config.get_value("anim", "idle_folder", "idle"),
 		"idle_anim_frames": config.get_value("anim", "idle_frames", 1),
 		"run_anim_folder": config.get_value("anim", "run_folder", "run"),
-		"run_anim_frames": config.get_value("anim", "run_frames", 1)
+		"run_anim_frames": config.get_value("anim", "run_frames", 1),
+		"norm_attack_type": config.get_value("normal", "type", "melee"),
+		"norm_anim_folder": config.get_value("normal", "anim", "normal"),
+		"norm_anim_frames": config.get_value("normal", "frames"),
+		"norm_attack_damage": config.get_value("normal", "damage", 5),
+		"norm_sizex": config.get_value("normal", "sizex", 32),
+		"norm_sizey": config.get_value("normal", "sizey", 32)
+		
 	}
 
 	

@@ -21,3 +21,7 @@ Global="*res://global.gd"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
+
+[global_group]
+
+attack=""

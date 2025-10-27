@@ -14,3 +14,10 @@ sprite_frames = SubResource("SpriteFrames_4flbx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_sh265")
+
+[node name="LeftMarker" type="Marker2D" parent="."]
+position = Vector2(-24, 0)
+rotation = 6.28319
+
+[node name="RightMarker" type="Marker2D" parent="."]
+position = Vector2(24, 0)

@@ -39,18 +39,27 @@ func spawn() -> void:
 	var sframes: SpriteFrames = SpriteFrames.new()
 	
 	sframes.add_animation("idle")
+	#sframes.set_animation_loop("idle", false)
 	for i in range(data["idle_anim_frames"]):
 		var im = Image.new()
 		sframes.add_frame("idle", ImageTexture.create_from_image(im.load_from_file(path + "anim/" + data["idle_anim_folder"] + "/idle" + str(i+1) + ".png")))
 	
 	sframes.add_animation("run")
+	#sframes.set_animation_loop("run", false)
 	for i in range(data["run_anim_frames"]):
 		var im = Image.new()
 		sframes.add_frame("run", ImageTexture.create_from_image(im.load_from_file(path + "anim/" + data["run_anim_folder"] + "/run" + str(i+1) + ".png")))
 	
+	sframes.add_animation("normal")
+	#sframes.set_animation_loop("normal", false)
+	for i in range(data["norm_anim_frames"]):
+		var im = Image.new()
+		sframes.add_frame("normal", ImageTexture.create_from_image(im.load_from_file(path + "anim/" + data["norm_anim_folder"] + "/normal" + str(i+1) + ".png")))
+	
 	animSprite.set_sprite_frames(sframes)
 	
-	
+	a.norm_type = data["norm_attack_type"]
+	a.norm_damage = data["norm_attack_damage"]
 	
 	var aShape: RectangleShape2D = RectangleShape2D.new()
 	aShape.size = Vector2(data["hb_width"], data["hb_height"])

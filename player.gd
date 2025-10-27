@@ -8,7 +8,13 @@ var extA: float
 var extB: float
 var index: int
 var controller: int
+var dir: String
 var attack_types: Array = ["melee", "ranged"]
+var melee: PackedScene = preload("res://melee_attack.tscn")
+var leftPos: Vector2
+var rightPos: Vector2
+enum playerState {RUN, IDLE, NORMAL}
+var state: playerState = playerState.IDLE
 
 # normal attack
 var norm_type: String
@@ -29,11 +35,16 @@ var bindings: Dictionary = {
 }
 
 func _ready() -> void:
-
+	dir = "left"
 	Global.allPlayers.append(self)
 	index = Global.allPlayers.find(self)
-	controller = Input.get_connected_joypads()[index]
+	controller = Input.get_connected_joypads()[index] 
+	$AnimatedSprite2D.centered = false
+	$AnimatedSprite2D.offset = Vector2(-$CollisionShape2D.get_shape().size.x/2, -$CollisionShape2D.get_shape().size.y/2)
 	$AnimatedSprite2D.play("idle")
+	
+	leftPos = Vector2(-$CollisionShape2D.get_shape().size.x/2-$CollisionShape2D.get_shape().size.x/2, -$CollisionShape2D.get_shape().size.y/2)
+	rightPos = Vector2(-$CollisionShape2D.get_shape().size.x/2, -$CollisionShape2D.get_shape().size.y/2)
 	print(index)
 
 
@@ -46,16 +57,43 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
+	
+	if state == playerState.RUN:
+		$AnimatedSprite2D.play("run")
+		$AnimatedSprite2D.offset = rightPos
+	elif state == playerState.IDLE:
+		$AnimatedSprite2D.play("idle")
+		$AnimatedSprite2D.offset = rightPos
+	elif state == playerState.NORMAL:
+		$AnimatedSprite2D.play("normal")
+		
 	if Input.is_joy_button_pressed(controller, bindings["left"]):
 		velocity.x = -SPEED
-		$AnimatedSprite2D.play("run")
 		$AnimatedSprite2D.flip_h = true
+		dir = "left"
+		state = playerState.RUN
 	elif Input.is_joy_button_pressed(controller, bindings["right"]):
 		velocity.x = SPEED
-		$AnimatedSprite2D.play("run")
 		$AnimatedSprite2D.flip_h = false
+		dir = "right"
+		state = playerState.RUN
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
-		$AnimatedSprite2D.play("idle")
+		
+		state=playerState.IDLE
+	
+	if Input.is_joy_button_pressed(controller, bindings["normalattack"]):
+		attack(dir)
 	
 	move_and_slide()
+
+func attack(direction: String) -> void:
+	var att: meleeAttack = melee.instantiate()
+	state = playerState.NORMAL
+	if dir == "left":
+		$AnimatedSprite2D.offset = leftPos
+		att.position = $LeftMarker.position
+	else:
+		att.position = $RightMarker.position
+		$AnimatedSprite2D.offset = rightPos
+	add_child(att)
