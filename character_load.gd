@@ -10,10 +10,12 @@ func load_all() -> PackedStringArray:
 
 	return config.get_section_keys("characters")
 
-func load_char(char: String) -> Dictionary: 
+func load_char(charac: String) -> Dictionary: 
 	# this returns specifically an array that has a Texture2d, int, int
 	var config = ConfigFile.new()
-	var err = config.load("user://characters/"+char+"/"+char+".cfg")
+	var err = config.load("user://characters/"+charac+"/"+charac+".cfg")
+	if err != OK:
+		return {}
 	var path = "user://characters/"+ config.get_value("meta", "name") + "/"
 	return {
 		"base_image": load(path + config.get_value("meta", "image")),

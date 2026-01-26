@@ -87,7 +87,7 @@ func _physics_process(delta: float) -> void:
 	
 	move_and_slide()
 
-func attack(direction: String) -> void:
+func attack(_direction: String) -> void:
 	var att: meleeAttack = melee.instantiate()
 	state = playerState.NORMAL
 	if dir == "left":
