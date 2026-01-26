@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=4 uid="uid://cqrc0ooj23ef1"]
+[gd_scene format=4 uid="uid://cqrc0ooj23ef1"]
 
 [ext_resource type="Script" uid="uid://d0qsvxttkqtw5" path="res://main.gd" id="1_0xm2m"]
 
@@ -16,14 +16,14 @@ tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_h2yge")
 
-[node name="main" type="Node2D"]
+[node name="main" type="Node2D" unique_id=320994968]
 script = ExtResource("1_0xm2m")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1573912599]
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=386855399]
 
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer"]
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer" unique_id=690352366]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -31,7 +31,7 @@ offset_left = -59.0
 offset_bottom = 101.0
 grow_horizontal = 0
 
-[node name="Spawn" type="Button" parent="CanvasLayer/GridContainer"]
+[node name="Spawn" type="Button" parent="CanvasLayer/GridContainer" unique_id=1714107069]
 layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
@@ -39,17 +39,17 @@ focus_mode = 0
 text = "spawn
 "
 
-[node name="Next" type="Button" parent="CanvasLayer/GridContainer"]
+[node name="Next" type="Button" parent="CanvasLayer/GridContainer" unique_id=1056505343]
 layout_mode = 2
 focus_mode = 0
 text = "next"
 
-[node name="Prev" type="Button" parent="CanvasLayer/GridContainer"]
+[node name="Prev" type="Button" parent="CanvasLayer/GridContainer" unique_id=72680220]
 layout_mode = 2
 focus_mode = 0
 text = "prev"
 
-[node name="Label" type="Label" parent="CanvasLayer"]
+[node name="Label" type="Label" parent="CanvasLayer" unique_id=1194144570]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -61,7 +61,7 @@ size_flags_horizontal = 10
 size_flags_vertical = 8
 text = "chonk"
 
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
+[node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=1008926097]
 tile_map_data = PackedByteArray("AADu/wkAAAAAAAAAAADv/wkAAAAAAAAAAADw/wkAAAAAAAAAAADx/wkAAAAAAAAAAADy/wkAAAAAAAAAAADz/wkAAAAAAAAAAAD0/wkAAAAAAAAAAAD1/wkAAAAAAAAAAAD2/wkAAAAAAAAAAAD3/wkAAAAAAAAAAAD4/wkAAAAAAAAAAAD5/wkAAAAAAAAAAAD6/wkAAAAAAAAAAAD7/wkAAAAAAAAAAAD8/wkAAAAAAAAAAAD9/wkAAAAAAAAAAAD+/wkAAAAAAAAAAAD//wkAAAAAAAAAAAAAAAkAAAAAAAAAAAABAAkAAAAAAAAAAAACAAkAAAAAAAAAAAADAAkAAAAAAAAAAAAEAAkAAAAAAAAAAAAFAAkAAAAAAAAAAAAGAAkAAAAAAAAAAAAHAAkAAAAAAAAAAAAIAAkAAAAAAAAAAAAJAAkAAAAAAAAAAAAKAAkAAAAAAAAAAAALAAkAAAAAAAAAAAAMAAkAAAAAAAAAAAANAAkAAAAAAAAAAAAOAAkAAAAAAAAAAAAPAAkAAAAAAAAAAAAQAAkAAAAAAAAAAAARAAkAAAAAAAAAAADu//b/AAAAAAAAAADu//f/AAAAAAAAAADu//j/AAAAAAAAAADu//n/AAAAAAAAAADu//r/AAAAAAAAAADu//v/AAAAAAAAAADu//z/AAAAAAAAAADu//3/AAAAAAAAAADu//7/AAAAAAAAAADu////AAAAAAAAAADu/wAAAAAAAAAAAADu/wEAAAAAAAAAAADu/wIAAAAAAAAAAADu/wMAAAAAAAAAAADu/wQAAAAAAAAAAADu/wUAAAAAAAAAAADu/wYAAAAAAAAAAADu/wcAAAAAAAAAAADu/wgAAAAAAAAAAADv//b/AAAAAAAAAADw//b/AAAAAAAAAADx//b/AAAAAAAAAADy//b/AAAAAAAAAADz//b/AAAAAAAAAAD0//b/AAAAAAAAAAD1//b/AAAAAAAAAAD2//b/AAAAAAAAAAD3//b/AAAAAAAAAAD4//b/AAAAAAAAAAD5//b/AAAAAAAAAAD6//b/AAAAAAAAAAD7//b/AAAAAAAAAAD8//b/AAAAAAAAAAD9//b/AAAAAAAAAAD+//b/AAAAAAAAAAD///b/AAAAAAAAAAAAAPb/AAAAAAAAAAABAPb/AAAAAAAAAAACAPb/AAAAAAAAAAADAPb/AAAAAAAAAAAEAPb/AAAAAAAAAAAFAPb/AAAAAAAAAAAGAPb/AAAAAAAAAAAHAPb/AAAAAAAAAAAIAPb/AAAAAAAAAAAJAPb/AAAAAAAAAAAKAPb/AAAAAAAAAAALAPb/AAAAAAAAAAAMAPb/AAAAAAAAAAANAPb/AAAAAAAAAAAOAPb/AAAAAAAAAAAPAPb/AAAAAAAAAAAQAPb/AAAAAAAAAAARAPb/AAAAAAAAAAARAPf/AAAAAAAAAAARAPj/AAAAAAAAAAARAPn/AAAAAAAAAAARAPr/AAAAAAAAAAARAPv/AAAAAAAAAAARAPz/AAAAAAAAAAARAP3/AAAAAAAAAAARAP7/AAAAAAAAAAARAP//AAAAAAAAAAARAAAAAAAAAAAAAAARAAEAAAAAAAAAAAARAAIAAAAAAAAAAAARAAMAAAAAAAAAAAARAAQAAAAAAAAAAAARAAUAAAAAAAAAAAARAAYAAAAAAAAAAAARAAcAAAAAAAAAAAARAAgAAAAAAAAAAAA=")
 tile_set = SubResource("TileSet_1bvp3")
 
