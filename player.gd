@@ -19,6 +19,8 @@ var state: playerState = playerState.IDLE
 # normal attack
 var norm_type: String
 var norm_damage: int
+var norm_sizex: int
+var norm_sizey: int
 
 # special attack
 var spec_type: String
@@ -33,6 +35,9 @@ var bindings: Dictionary = {
 	"normalattack": JOY_BUTTON_A,
 	"specialattack": JOY_BUTTON_B
 }
+
+var _recoiling: bool = false
+var recoil_speed: float = 10000.0
 
 func _ready() -> void:
 	dir = "left"
@@ -77,10 +82,13 @@ func _physics_process(delta: float) -> void:
 		$AnimatedSprite2D.flip_h = false
 		dir = "right"
 		state = playerState.RUN
-	else:
+	elif not _recoiling:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		
 		state=playerState.IDLE
+	
+	if _recoiling:
+		velocity.x = move_toward(velocity.x, recoil_speed, 1000)
 	
 	if Input.is_joy_button_pressed(controller, bindings["normalattack"]):
 		attack(dir)
@@ -88,7 +96,10 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func attack(_direction: String) -> void:
-	var att: meleeAttack = melee.instantiate()
+	var att: MeleeAttack = melee.instantiate()
+	att.parent = self
+	
+	att.get_node("Collision").shape.size = Vector2(norm_sizex, norm_sizey)
 	state = playerState.NORMAL
 	if dir == "left":
 		$AnimatedSprite2D.offset = leftPos
@@ -97,3 +108,13 @@ func attack(_direction: String) -> void:
 		att.position = $RightMarker.position
 		$AnimatedSprite2D.offset = rightPos
 	add_child(att)
+
+func recoil() -> void:
+	_recoiling = true
+	$RecoilTimer.start()
+	print("Timer start")
+
+
+func _on_recoil_timer_timeout() -> void:
+	print("timer end")
+	_recoiling = false

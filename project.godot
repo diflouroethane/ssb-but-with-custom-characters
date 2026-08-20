@@ -29,3 +29,7 @@ enabled=PackedStringArray("res://addons/godot_super-wakatime/plugin.cfg")
 [global_group]
 
 attack=""
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

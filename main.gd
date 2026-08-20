@@ -59,10 +59,13 @@ func spawn() -> void:
 	
 	a.norm_type = data["norm_attack_type"]
 	a.norm_damage = data["norm_attack_damage"]
+	a.norm_sizex = data["norm_sizex"]
+	a.norm_sizey = data["norm_sizey"]
 	
 	var aShape: RectangleShape2D = RectangleShape2D.new()
 	aShape.size = Vector2(data["hb_width"], data["hb_height"])
 	a.get_node("CollisionShape2D").set_shape(aShape)
+	
 	
 	a.SPEED = data["speed"]
 	a.JUMP_VELOCITY = data["jump"]
